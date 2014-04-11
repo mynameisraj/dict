@@ -103,7 +103,7 @@ static void test_str(void)
 {
     int i;
     printf("\nstring tests\n------------------\n");
-    dict_t *dict = dict_create(DICT_INT);
+    dict_t *dict = dict_create(DICT_STR);
     assert(dict_is_empty(dict));
     printf("dict_is_empty: PASS\n");
 
