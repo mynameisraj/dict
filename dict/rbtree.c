@@ -36,7 +36,6 @@ static void fix_remove(rbtree_t * tree, rbtreenode_t * x);
 /* Retrieval */
 static rbtreenode_t * find_node(rbtree_t * tree, rbtreenode_t * x, const void * key);
 static rbtreenode_t * get_minimum(rbtree_t * tree, rbtreenode_t * x);
-static rbtreenode_t * get_maximum(rbtree_t * tree, rbtreenode_t * x);
 
 int compare_less_than(comparator_t comparator, void * a, void * b)
 {
@@ -379,15 +378,6 @@ static rbtreenode_t * get_minimum(rbtree_t * tree, rbtreenode_t * x)
 {
     while (x->left != tree->nil_sentinel) {
         x = x->left;
-    }
-    return x;
-}
-
-/* Returns maximum child of given node */
-static rbtreenode_t * get_maximum(rbtree_t * tree, rbtreenode_t * x)
-{
-    while (x->right != tree->nil_sentinel) {
-        x = x->right;
     }
     return x;
 }
