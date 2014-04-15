@@ -24,6 +24,21 @@ static int index_str = 0;
 static void test_int(void);
 static void test_str(void);
 
+int compare_int(const void * a, const void * b);
+int compare_str(const void * a, const void * b);
+
+/* Comparators */
+
+int compare_int(const void * a, const void * b) {
+    int * a_int = (int *) a;
+    int * b_int = (int *) b;
+    return (*a_int == *b_int) ? 0 : (*a_int < *b_int ? -1 : 1);
+}
+
+int compare_str(const void * a, const void * b) {
+    return strcmp((const char *)a, (const char *)b);
+}
+
 static void create_test_value_int(int index)
 {
     int *i = malloc(sizeof(int));
@@ -59,7 +74,7 @@ static void test_int(void)
 {
     int i;
     printf("\ninteger tests\n------------------\n");
-    dict_t *dict = dict_create(DICT_INT);
+    dict_t *dict = dict_create(compare_int);
     assert(dict_is_empty(dict));
     printf("dict_is_empty: PASS\n");
 
@@ -103,7 +118,7 @@ static void test_str(void)
 {
     int i;
     printf("\nstring tests\n------------------\n");
-    dict_t *dict = dict_create(DICT_STR);
+    dict_t *dict = dict_create(compare_str);
     assert(dict_is_empty(dict));
     printf("dict_is_empty: PASS\n");
 

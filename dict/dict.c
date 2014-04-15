@@ -9,21 +9,9 @@
 #include "dict.h"
 #include <string.h>
 
-int compare_int(const void * a, const void * b);
-int compare_str(const void * a, const void * b);
-
-dict_t * dict_create(dict_type_t type) {
+dict_t * dict_create(comparator_t fn) {
     dict_t * d = (dict_t *) malloc(sizeof(dict_t));
-    comparator_t fn = compare_int;
-    switch (type) {
-        case DICT_STR:
-            fn = compare_int;
-            break;
-        default:
-            break;
-    }
     d->tree = rbtree_create(fn);
-    d->type = type;
     return d;
 }
 
@@ -52,16 +40,4 @@ int dict_destroy(dict_t * dict)
 int dict_is_empty(dict_t * dict)
 {
     return rbtree_is_empty(dict->tree);
-}
-
-/* Various comparators */
-
-int compare_int(const void * a, const void * b) {
-    int * a_int = (int *) a;
-    int * b_int = (int *) b;
-    return (*a_int == *b_int) ? 0 : (*a_int < *b_int ? -1 : 1);
-}
-
-int compare_str(const void * a, const void * b) {
-    return strcmp((const char *)a, (const char *)b);
 }

@@ -9,9 +9,6 @@
 #ifndef dict_dict_h
 #define dict_dict_h
 
-#define DICT_INT 0
-#define DICT_STR 1
-
 #include <stdlib.h>
 #include "rbtree.h"
 
@@ -19,11 +16,10 @@ typedef int dict_type_t;
 
 typedef struct dict {
     rbtree_t * tree;
-    dict_type_t type;
     /* TODO: Add a lock here */
 } dict_t;
 
-dict_t * dict_create(dict_type_t type);
+dict_t * dict_create(comparator_t fn);
 void dict_insert(dict_t * dict, const void * key, const void * value);
 void dict_remove(dict_t * dict, const void * key);
 const void * dict_find(dict_t * dict, const void * key);
